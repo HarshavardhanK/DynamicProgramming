@@ -37,7 +37,6 @@ void print_hello() {
 
 int main(int argc, const char * argv[]) {
 
-   // test_max_sum();
-    test_coin_change();
+    fibonacci_reverse(5);
     return 0;
 }

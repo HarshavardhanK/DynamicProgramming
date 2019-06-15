@@ -351,3 +351,78 @@ void test_coin_change() {
     cout << "No of ways for change: " << count_coin_change_naive(coins, (int)coins.size(), change) << endl;
 }
 
+//MARK:- CAR ASSEMBLY LINE
+int car_assembly_line(int price_station[][4], int price_change_line[][4], int* entry, int* exit, int num_stations, int num_lines) {
+    
+    int timeA[num_stations];
+    int timeB[num_stations];
+    
+    timeA[0] = price_station[0][0] + entry[0];
+    timeB[0] = price_station[1][0] + entry[1];
+    
+    for(int i = 1; i < num_stations; i++) {
+        
+        timeA[i] = min(timeA[i - 1] + price_station[0][i], timeB[i - 1] + price_change_line[1][i] + price_station[0][i]);
+        
+        timeB[i] = min(timeB[i - 1] + price_station[1][i], timeA[i - 1] + price_change_line[0][i] + price_station[1][i]);
+    }
+    
+    return min(timeA[num_stations - 1] + exit[0], timeB[num_stations - 1] + exit[1]);
+}
+
+void test_car_assembly_line() {
+    
+    const int num_station = 4;
+    const int line = 2;
+    
+    int price_station[][num_station] = {{4, 5, 3, 2}, {2, 10, 1, 4}};
+    int price_change_line[][num_station] = {{0, 7, 4, 5}, {0, 9, 2, 8}};
+    int entry[] = {10, 12};
+    int exit[] = {18, 7};
+    
+    int cost = car_assembly_line(price_station, price_change_line, entry, exit, num_station, line);
+    
+    cout << "Cost of car in assembly: " << cost << endl;
+    
+}
+
+//MARK:- FIBONACCI IN REVERSE ORDER..
+void fibonacci_reverse(int num) {
+    
+    int fibonacci[num + 1];
+    fibonacci[0] = 0; fibonacci[1] = 1;
+    
+    for(int i = 2; i < num; i++) {
+        fibonacci[i] = fibonacci[i - 2] + fibonacci[i - 1];
+    }
+    
+   // print_array(fibonacci, num);
+    
+    reverse_array(fibonacci, num);
+    
+    print_array(fibonacci, num);
+    
+}
+
+//MARK:- SMALLEST SUM CONTIGOUS SUB ARRAY
+template<typename T> T smallet_sum_contigous_sub_array(vector<T> array) {
+    
+    T min_global = INT_MAX;
+    T min_local = INT_MAX;
+    
+    for(auto element: array) {
+        
+        if(min_local > 0) {
+            min_local = element;
+            
+        } else {
+            min_local += element;
+        }
+        
+        min_global = min(min_global, min_local);
+    }
+    
+    return min_global;
+    
+}
+

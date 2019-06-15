@@ -65,6 +65,13 @@ template<typename T> void generate_random_list(T** array, int count, int range_u
     
     *array = new T[count];
     
+//    if(!range_upper) {
+//        cout << "Cannot mod with 0. Give another range\n";
+//        return;
+//    }
+    
+    assert(range_upper != 0);
+    
     for(int i = 0; i < count; i++) {
         (*array)[i] = std::rand() % range_upper + 1;
     }
@@ -97,6 +104,15 @@ template<typename T> void print_array(T* array, int beginning_index, int end_ind
     }
     
     printf("\n");
+}
+
+template <typename T> void reverse_array(T* array, int size) {
+    
+    int mid = size / 2;
+    
+    for(int i = 0; i < mid; i++) {
+        swap(array[i], array[size - 1 - i]);
+    }
 }
 
 

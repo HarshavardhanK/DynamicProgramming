@@ -47,4 +47,15 @@ void test_max_sum();
 int count_coin_change_naive(vector<int>, int, int);
 void test_coin_change();
 
+//MARK:- ASSEMBLY LINE
+//int car_assembly_line(int**, int**, int, int);
+void test_car_assembly_line();
+
+//MARK:- FIBONACCI IN REVERSE ORDER
+void fibonacci_reverse(int);
+
+
+//MARK:- SMALLEST SUM CONTINGOUS SUB ARRAY
+template<typename T> T smallet_sum_contigous_sub_array(vector<T> array);
+
 #endif
