@@ -177,3 +177,177 @@ void test_rod_cutting() {
     //time_function_rod_cutting(rod_cutting_dynamic, price, 8);
     
 }
+
+//MARK:- LONGEST COMMON SUBSEQUENCE
+
+int longest_common_subsequence_naive(string first, string second, int m, int n) {
+    
+    if(m == 0 || n == 0) {
+        return 0;
+    }
+    
+    if(first[m - 1] == second[n - 1]) {
+        return 1 + longest_common_subsequence_naive(first, second, m - 1, n - 1);
+    }
+    
+    return max(longest_common_subsequence_naive(first, second, m, n - 1), longest_common_subsequence_naive(first, second, m - 1, n));
+}
+
+int longest_common_subsequence_dynamic(string first, string second, int m, int n) {
+    
+//    int** LCS = nullptr;
+//    initialize_matrix(&LCS, m + 1, n + 1, 0);
+//    //print_matrix(LCS, m + 1, n + 1);
+    
+    int LCS[m + 1][n + 1];
+    
+    for(int i = 0; i <= m; i++) {
+        
+        for(int j = 0; j <= n; j++) {
+            
+            if(i == 0 || j == 0) {
+                LCS[i][j] = 0;
+                
+            } else if (first[m - 1] == second[n - 1]) {
+                LCS[i][j] = LCS[i - 1][j - 1] + 1;
+                
+            } else {
+                LCS[i][j] = max(LCS[i - 1][j], LCS[i][j - 1]);
+            }
+        }
+    }
+    
+    return LCS[m][n];
+}
+
+int lcs( string X, string Y, int m, int n )
+{
+    int L[m+1][n+1];
+    int i, j;
+    
+    /* Following steps build L[m+1][n+1] in bottom up fashion. Note
+     that L[i][j] contains length of LCS of X[0..i-1] and Y[0..j-1] */
+    for (i=0; i<=m; i++)
+    {
+        for (j=0; j<=n; j++)
+        {
+            if (i == 0 || j == 0)
+                L[i][j] = 0;
+            
+            else if (X[i-1] == Y[j-1])
+                L[i][j] = L[i-1][j-1] + 1;
+            
+            else
+                L[i][j] = max(L[i-1][j], L[i][j-1]);
+        }
+    }
+    
+    /* L[m][n] contains length of LCS for X[0..n-1] and Y[0..m-1] */
+    return L[m][n];
+}
+//NOTWORK:- ^^ABOVE CODE
+
+void test_lcs() {
+    
+    string first = "AGGTAB";
+    string second = "GXTXAYB";
+    
+    cout << "LCS is " << longest_common_subsequence_naive(first, second, (int)first.size(), (int)second.size()) << endl;
+    
+    cout << "LCS is " << longest_common_subsequence_dynamic(first, second, (int)first.size(), (int)second.size()) << endl;
+    
+    cout << "LCS is " << lcs(first, second, (int)first.size(), (int)second.size()) << endl;
+}
+
+
+//MARK:- MAXIMUM LONGEST SUM..
+template<typename T> T maximum_continous_sum(vector<T> &list) {
+    
+    T current_max = list[0];
+    T max_global = list[0];
+    
+    int length = (int) list.size();
+    
+    for(int i = 1; i < length; i++) {
+        current_max = max(list[i], current_max + list[i]);
+        max_global = max(max_global, current_max);
+    }
+    
+    return max_global;
+}
+
+//MARK:- MAXIMUM LONGEST SUM WITH PRINTING THE INDICES..
+
+template<typename T> T maximum_continous_sum(vector<T>& list, bool print, int& beginning_index, int& end_index) {
+    
+    if(print) {
+        
+        T global_max = INT_MIN;
+        T max_end_here = 0;
+        
+        beginning_index = 0; end_index = 0;
+        int start = 0;
+        
+        int length = (int) list.size();
+        
+        for(int i = 0; i < length; i++) {
+            max_end_here += list[i];
+            
+            if(max_end_here > global_max) {
+                global_max = max_end_here;
+                
+                //Set indices
+                end_index = i;
+                beginning_index = start;
+                
+            }
+            
+            if(max_end_here < 0) {
+                max_end_here = 0;
+                start = i + 1;
+            }
+        }
+        
+        return global_max;
+        
+    } else {
+        return maximum_continous_sum(list);
+    }
+}
+
+void test_max_sum() {
+    vector<int> *list = generate_random_vector<int>(5, 10, -3);
+    print_vector(*list);
+   // cout << "Max sum: " << maximum_continous_sum(*list) << endl;
+    
+    int beg = 0; int end = 0;
+    
+    cout << maximum_continous_sum(*list, true, beg, end) << endl;
+    print_vector(*list, beg, end + 1); // end + 1 since the end_index in the function is EXACTLY till the last element contributing to the maximum sum..
+    
+}
+
+//MARK:- COIN CHANGE PROBLEM
+int count_coin_change_naive(vector<int> S, int m, int n) {
+    
+    if(n == 0)
+        return 1;
+    
+    if(n < 0)
+        return 0;
+    
+    if(m <= 0 && n >= 1)
+        return 0;
+    
+    return count_coin_change_naive(S, m - 1, n) + count_coin_change_naive(S, m, n - S[m - 1]);
+    //didn't understand shit here...
+}
+
+void test_coin_change() {
+    
+    vector<int> coins = {1,2,5};
+    int change = 12;
+    
+    cout << "No of ways for change: " << count_coin_change_naive(coins, (int)coins.size(), change) << endl;
+}
+

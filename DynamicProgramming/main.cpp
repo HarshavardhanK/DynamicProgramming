@@ -36,11 +36,8 @@ void print_hello() {
 }
 
 int main(int argc, const char * argv[]) {
-    
-    time_function(test_rod_cutting);
-    //time_function(print_hello);
-    
 
-    
+   // test_max_sum();
+    test_coin_change();
     return 0;
 }

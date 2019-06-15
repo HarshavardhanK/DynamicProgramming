@@ -33,5 +33,18 @@ int rod_cutting_naive(vector<int>&, int count);
 int rod_cutting_dynamic(vector<int>&, int count);
 void test_rod_cutting();
 
+//MARK:- LONGEST COMMON SUBSEQUENCE..
+int longest_common_subsequence_naive(string first, string second, int m, int n);
+int longest_common_subsequence_dynamic(string first, string second, int m, int n);
+void test_lcs();
+
+//MARK:- Maximum continous sum..
+template<typename T> T maximum_continous_sum(vector<T> &);
+template<typename T> T maximum_continous_sum(vector<T>& list, bool print, int& beginning_index, int& end_index);
+void test_max_sum();
+
+//MARK:- COIN CHANGE PROBLEM
+int count_coin_change_naive(vector<int>, int, int);
+void test_coin_change();
 
 #endif

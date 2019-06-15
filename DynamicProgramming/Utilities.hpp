@@ -30,7 +30,7 @@ template<typename T> void print_vector(const vector<T>& list) {
     printf("\n");
 }
 
-template<typename T> void print_matrix(const T* array, int rows, int cols) {
+template<typename T> void print_matrix(const T** array, int rows, int cols) {
     
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++)
@@ -79,6 +79,24 @@ template<typename T> vector<T>* generate_random_vector(int size, int range, int 
     }
     
     return list;
+}
+
+template<typename T> void print_vector(vector<T>& list, int beginning_index, int end_index) {
+    
+    for(int i = beginning_index; i < end_index; i++) {
+        cout << list[i] << " ";
+    }
+    
+    printf("\n");
+}
+
+template<typename T> void print_array(T* array, int beginning_index, int end_index) {
+    
+    for(int i = beginning_index; i < end_index; i++) {
+        cout << array[i] << " ";
+    }
+    
+    printf("\n");
 }
 
 
