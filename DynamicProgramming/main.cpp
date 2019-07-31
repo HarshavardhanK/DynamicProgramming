@@ -11,6 +11,7 @@
 #include "wines_order.hpp"
 #include "Utilities.hpp"
 #include "gfg.hpp"
+#include "string_manip.hpp"
 
 
 void test_fibonacci(int num) {
@@ -36,7 +37,8 @@ void print_hello() {
 }
 
 int main(int argc, const char * argv[]) {
-
-    fibonacci_reverse(5);
+    
+    test_number_of_paths_from_left_top_right_bottom();
+    
     return 0;
 }

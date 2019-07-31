@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CEF7AAE122F058C900B43DB1 /* string_manip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEF7AADF22F058C900B43DB1 /* string_manip.cpp */; };
 		D6E6832D229FBC4500027E8C /* wines_order.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D6E6832C229FBC4500027E8C /* wines_order.hpp */; };
 		D6E6833222A00CB800027E8C /* gfg.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D6E6833122A00CB800027E8C /* gfg.hpp */; };
 		D6E6833422A00DDE00027E8C /* gfg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6E6833322A00DDE00027E8C /* gfg.cpp */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CEF7AADF22F058C900B43DB1 /* string_manip.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = string_manip.cpp; sourceTree = "<group>"; };
+		CEF7AAE022F058C900B43DB1 /* string_manip.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = string_manip.hpp; sourceTree = "<group>"; };
 		D6E6832C229FBC4500027E8C /* wines_order.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = wines_order.hpp; sourceTree = "<group>"; };
 		D6E6832F229FC37200027E8C /* Utilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utilities.hpp; sourceTree = "<group>"; };
 		D6E6833122A00CB800027E8C /* gfg.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gfg.hpp; sourceTree = "<group>"; };
@@ -47,6 +50,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CEF7AADE22F058A400B43DB1 /* InterviewKit */ = {
+			isa = PBXGroup;
+			children = (
+				CEF7AADF22F058C900B43DB1 /* string_manip.cpp */,
+				CEF7AAE022F058C900B43DB1 /* string_manip.hpp */,
+			);
+			path = InterviewKit;
+			sourceTree = "<group>";
+		};
 		D6E6832B229FBC2500027E8C /* Backtracking */ = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +70,7 @@
 		D6ED58CB229696C5006854D0 = {
 			isa = PBXGroup;
 			children = (
+				CEF7AADE22F058A400B43DB1 /* InterviewKit */,
 				D6ED58D6229696C5006854D0 /* DynamicProgramming */,
 				D6ED58D5229696C5006854D0 /* Products */,
 			);
@@ -153,6 +166,7 @@
 				D6ED58D8229696C5006854D0 /* main.cpp in Sources */,
 				D6E6832D229FBC4500027E8C /* wines_order.hpp in Sources */,
 				D6E6833422A00DDE00027E8C /* gfg.cpp in Sources */,
+				CEF7AAE122F058C900B43DB1 /* string_manip.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

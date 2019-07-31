@@ -40,6 +40,18 @@ template<typename T> void print_matrix(const T** array, int rows, int cols) {
     }
 }
 
+template<typename T, int R, int C> void print_matrix(const T matrix[R][C], int rows, int cols) {
+    
+    for(int i = 0; i < rows; i++) {
+        
+        for(int j = 0; i < cols; j++) {
+            cout << matrix[i][j] << " ";
+        }
+        
+        cout << '\n';
+    }
+}
+
 template<typename T> void initialize_array(T** array, int size, T init_value) {
     
     *array = new T[size];

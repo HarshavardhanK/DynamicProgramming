@@ -85,31 +85,39 @@ bool is_subset_sum(int* set, int count, int sum) {
 bool is_subset_sum_dynamic(int* set, int count, int sum) {
     
     //value of matrix[i][j] will be true if there is a subset set[0..j-1] with sum equal to i..
-    bool matrix[count + 1][sum + 1];
+    bool memory[count + 1][sum + 1];
     
-    //if sum = 0 then answer is true
-    for(int i = 0; i <=count; i++)
-        matrix[i][0] = true;
+    //set all sum=0 values to true
+    for(int i = 0; i <= count; i++)
+        memory[i][0] = true;
     
-    //if sum is not 0, and the set is empty, then the answer is false
-    for(int i = 0; i <= sum; i++)
-        matrix[0][i] = false;
+    //set all other values to false to indicate such a sum cannot be formed YET
+    for(int i = 1; i <= sum; i++)
+        memory[0][i] = false;
     
     for(int i = 1; i <= count; i++) {
         
         for(int j = 1; j <= sum; j++) {
             
-            if(j < set[i - 1])
-                matrix[i][j] = matrix[i - 1][j];
-            
-            if(j >= set[i - 1]) {
-                matrix[i][j] = matrix[i - 1][j] || matrix[i - 1][j - set[i - 1]];
+            if(j < set[i - 1]) {
+                memory[i][j] = memory[i - 1][j];
+                
+            } else {
+                memory[i][j] = memory[i - 1][j] || memory[i - 1][j - set[i - 1]];
             }
-            
         }
     }
     
-    return matrix[count][sum];
+    //print_matrix<count + 1, sum + 1>(memory, count + 1, sum + 1);
+    for(int i = 0; i <= count; i++) {
+        
+        for(int j = 0; j <= sum; j++) {
+            cout << bool(memory[i][j]) << " ";
+        }
+        cout << '\n';
+    }
+    
+    return memory[count][sum];
     
 }
 
@@ -425,4 +433,152 @@ template<typename T> T smallet_sum_contigous_sub_array(vector<T> array) {
     return min_global;
     
 }
+
+//MARK:-Min steps to one
+
+int min_steps_to_one_helper(int* memory, int num) {
+    
+    if(num == 1)
+        return 0;
+    
+    if(memory[num] != -1) {
+        return memory[num];
+    }
+    
+    int r = 1 + min_steps_to_one_helper(memory, num - 1);
+    
+    if(num % 2 == 0) {
+        r = min(r, 1 + min_steps_to_one_helper(memory, num / 2));
+    }
+    
+    if(num % 3 == 0) {
+        r = min(r, 1 + min_steps_to_one_helper(memory, num / 3));
+    }
+    
+    memory[num] = r;
+    
+    return r;
+    
+}
+
+void min_steps_to_one(int num) {
+    
+    int memory[num + 1];
+    
+    for(int i = 0; i <= num; i++)
+        memory[i] = -1;
+    
+    //initialize_array(&memory, size, -1);
+    
+    cout << min_steps_to_one_helper(memory, num) << endl;
+    
+}
+
+//MARK:- Count no of ways to step
+void no_of_ways_clim_stairs(int steps, int* step, int size) {
+    
+    if(!step) {
+        std::cout << "Enter valid step\n";
+        return;
+    }
+    
+    int* result;
+    initialize_array(&result, size, 0);
+}
+
+
+int different_ways(int num) {
+    
+    int result[num + 1];
+    
+    result[0] = 1;
+    result[1] = 1;
+    result[2] = 1;
+    result[3] = 2;
+    
+    for(int i = 1; i <= num; i++) {
+        result[i] = result[i - 1] + result[i - 3] + result[i - 4];
+    }
+    
+    return result[num];
+    
+}
+
+int different_ways_naive(int num) {
+    
+    if(num <= 2)
+        return 1;
+    
+    if(num == 3)
+        return 2;
+
+    return different_ways_naive(num - 1) + different_ways_naive(num - 3) + different_ways_naive(num - 4);
+}
+
+void test_different_ways() {
+    
+    cout << different_ways_naive(10) << '\n';
+}
+
+long long int num_binary_trees_for(int height) {
+    
+    int memory[height + 1];
+    memory[0] = memory[1] = 1;
+    
+    for(int i = 2; i <= height; i++) {
+        memory[i] = memory[i - 1] * (2 * memory[i - 2] + memory[i - 1]);
+    }
+    
+    return memory[height];
+}
+
+void test_num_binary_trees_for() {
+    
+    cout << num_binary_trees_for(15) << '\n';
+}
+
+//MARK:- No/of ways to reach right bottom from left bottom in a matrix
+int number_of_paths_from_left_top_right_bottom_naive(int rows, int cols) {
+    
+    if(cols == 1 || rows == 1)
+        return 1;
+    
+    return number_of_paths_from_left_top_right_bottom_naive(rows - 1, cols) + number_of_paths_from_left_top_right_bottom_naive(rows, cols - 1);
+    
+}
+
+int number_of_paths_from_left_top_right_bottom_dynamic(int rows, int cols) {
+    
+    
+    int **memory;
+    initialize_matrix(&memory, rows, cols, 0);
+    
+    //count of paths to reach any cell in the 1st col
+    for(int i = 0; i < rows; i++) {
+        memory[i][0] = 1;
+    }
+    
+    //count of paths to reach any cell in the 1st row
+    for(int i = 0; i < cols; i++) {
+        memory[0][i] = 1;
+    }
+    
+    for(int i = 1; i < rows; i++) {
+        
+        for(int j = 1; j < cols; j++) {
+            
+            memory[i][j] = memory[i - 1][j] + memory[i][j - 1];
+        }
+    }
+    
+    return memory[rows - 1][cols - 1];
+    
+}
+
+
+void test_number_of_paths_from_left_top_right_bottom() {
+    
+    cout << number_of_paths_from_left_top_right_bottom_dynamic(3, 3) << '\n';
+}
+
 
