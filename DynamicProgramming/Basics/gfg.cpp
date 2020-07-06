@@ -494,7 +494,6 @@ int different_ways(int num) {
     result[0] = 1;
     result[1] = 1;
     result[2] = 1;
-    result[3] = 2;
     
     for(int i = 1; i <= num; i++) {
         result[i] = result[i - 1] + result[i - 3] + result[i - 4];
@@ -581,4 +580,117 @@ void test_number_of_paths_from_left_top_right_bottom() {
     cout << number_of_paths_from_left_top_right_bottom_dynamic(3, 3) << '\n';
 }
 
+//MARK:- 0-1 Knapsack
+int knapsack_naive(int weights[], int value[], int max_weight, int num) {
+    
+    if(num == 0 || max_weight == 0)
+        return 0;
+    
+    if(weights[num - 1] > max_weight) {
+        return knapsack_naive(weights, value, max_weight, num - 1);
+    }
+    
+    return max(value[num - 1] + knapsack_naive(weights, value, max_weight - weights[num - 1], num - 1), knapsack_naive(weights, value, max_weight, num - 1));
+    
+}
 
+int knapsack_dynamic(int weights[], int values[], int max_weight, int num) {
+    
+    int memory[num + 1][max_weight + 1];
+    
+    for(int i = 0; i <= num; i++) {
+        memory[0][i] = 0;
+        memory[i][0] = 0;
+    }
+    
+    for(int i = 1; i <= num; i++) {
+        
+        for(int j = 1; j <= max_weight; j++) {
+            
+            if(weights[j - 1] <= j) {
+                memory[i][j] = max(values[i] + memory[i - 1][j - weights[i - 1]], memory[i - 1][j]);
+                
+            } else {
+                memory[i][j] = memory[i - 1][j];
+            }
+        }
+    }
+    
+    return memory[num][max_weight];
+    
+}
+
+void test_knapsack() {
+    
+    int weights[] = {10, 20, 30};
+    int values[] = {60, 100, 120};
+    
+    int max_weight = 50;
+    
+    cout << knapsack_naive(weights, values, max_weight, 3) << '\n';
+    cout << knapsack_dynamic(weights, values, max_weight, 3) << '\n';
+}
+
+
+float maximum_average_path(int cost[3][3]) {
+    
+    int memory[3][3];
+    memory[0][0] = cost[0][0];
+    
+    for(int i = 1; i < 3; i++) {
+        memory[i][0] = memory[i - 1][0] + cost[i][0];
+        memory[0][i] = memory[0][i - 1] + cost[0][i];
+    }
+    
+    for(int i = 1; i < 3; i++) {
+        for(int j = 1; j < 3; j++) {
+            memory[i][j] = max(memory[i - 1][j], memory[i][j - 1]) + cost[i][j];
+        }
+    }
+    
+    return memory[2][2] / (float)(2 * 3 - 1);
+    
+}
+
+void test_maximum_average_path() {
+    
+    int cost[][3] = {{1,2,3}, {6,5,4}, {7,3,9}};
+    
+    std::cout << maximum_average_path(cost) << '\n';
+}
+
+//MARK:- No. of unique path in GRID with obstacles
+int unique_grid_path(vector<vector<int>> grid) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    
+    vector<vector<int>> path(rows, vector<int>(cols, 0));
+    
+    for(int i = 0; i < rows; i++) {
+        if(grid[i][0] != 1) {
+            path[i][0] = 1;
+        }
+    }
+    
+    for(int i = 0; i < cols; i++) {
+        if(grid[0][i] != 1) {
+            path[0][i] = 1;
+        }
+    }
+    
+    for(int i = 1; i < rows; i++) {
+        for(int j = 1; j < cols; j++) {
+            
+            if(grid[i][j] == 0) {
+                path[i][j] = path[i - 1][j] + path[i][j - 1];
+            }
+        }
+    }
+    
+    return path[rows - 1][cols - 1];
+}
+
+void test_unique_grid_paths() {
+    vector<vector<int>> grid = {{0,0,0}, {0,1,0}, {0,0,0}};
+    cout << "Number of unique paths = " << unique_grid_path(grid) << '\n';
+}

@@ -79,4 +79,15 @@ int number_of_paths_from_left_top_right_bottom_naive(int, int);
 int number_of_paths_from_left_top_right_bottom_dynamic(int, int);
 void test_number_of_paths_from_left_top_right_bottom();
 
+//MARK:- 0-1 Knapsack Problem
+int knapsack_naive(int*, int*, int);
+void test_knapsack();
+
+float maximum_average_path(int cost[3][3]);
+void test_maximum_average_path();
+
+//MARK:- Number of unique path in a grid with obstacles
+int unique_grid_path(vector<vector<int>>);
+void test_unique_grid_paths();
+
 #endif

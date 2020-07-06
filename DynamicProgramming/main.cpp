@@ -12,6 +12,7 @@
 #include "Utilities.hpp"
 #include "gfg.hpp"
 #include "string_manip.hpp"
+#include "TracePath.hpp"
 
 
 void test_fibonacci(int num) {
@@ -38,7 +39,7 @@ void print_hello() {
 
 int main(int argc, const char * argv[]) {
     
-    test_number_of_paths_from_left_top_right_bottom();
+    test_unique_grid_paths();
     
     return 0;
 }
